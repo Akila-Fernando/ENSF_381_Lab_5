@@ -15,16 +15,26 @@
 </body>
 
 <script type="text/javascript">
-    const text = document.getElementById('textLabel');
     const redButton = document.getElementById('redButton');
     const bluebutton = document.getElementById('blueButton');
     const greenbutton = document.getElementById('greenButton');
     const orangebutton = document.getElementById('orangeButton');
     const purplebutton = document.getElementById('purpleButton');
 
-    button.addEventListener('Enter', () => {alert('Enter');}); 
+    button.addEventListener('click', () => {
+        document.getElementById("textLabel").style.color = "red"
+    }); 
 
-   
+    const input = document.getElementById("textInput");
+
+
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter"){
+            document.getElementById("textLabel").textContent = event.target.value;
+            event.target.value = "";
+        }
+    })
+
 
 </script>
 </html>
