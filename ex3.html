@@ -37,14 +37,43 @@
         document.getElementById("textLabel").style.color = "purple"
     }); 
 
-    const textInput = document.getElementById("textInput");
+    async function retrieveData() {
+        try{
+            const users_api = await fetch('https://67c1fca961d8935867e4fc76.mockapi.io/users_api');
+            const users = await response.json();
+            console.log('Fetched Data:', data);
+        }
+            catch (error) {
+            console.error('Error fetching data:', error)
 
+        }
+
+        const user = users.find(user => user.id === userId);
+        if (user) {
+            textLabel.textContent = `ID: ${user.id}, Name: ${user.first_name}, Group: ${user.user_group}`;
+        }
+        else {
+            textLabel.textContent = "No users were found with the provided User ID.";
+            }
+
+    }
+
+    const textInput = document.getElementById("textInput");
     textInput.addEventListener("keydown", function (event) {
+        const userId = textInput.value.trim()
         if (event.key === "Enter"){
+            if (userId) {
+                retrieveData(userId);
+            } else {
+                textLabel.textContent = "Please enter a valid User ID.";
+            }
             document.getElementById("textLabel").textContent = event.target.value;
             event.target.value = "";
         }
     });
+
+        
+    
 
 </script>
 </html>
