@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <input type="text" id="textInput" placeholder="Type something here..."/>
+    <input type="text" id="textInput" placeholder="Enter a user numer(1-3)"/>
     <label id="textLabel"></label>
     <button id="redButton">Red</button>
     <button id="blueButton">Blue</button>
@@ -37,30 +37,30 @@
         document.getElementById("textLabel").style.color = "purple"
     }); 
 
-    async function retrieveData() {
+    async function retrieveData(userId) {
         try{
-            const users_api = await fetch('https://67c1fca961d8935867e4fc76.mockapi.io/users_api');
-            const users = await response.json();
+            const response = await fetch('https://67c1fca961d8935867e4fc76.mockapi.io/users_api');
+            const data = await response.json();
             console.log('Fetched Data:', data);
-        }
-            catch (error) {
-            console.error('Error fetching data:', error)
-
-        }
-
-        const user = users.find(user => user.id === userId);
+            
+        const user = data.find(user => user.id === userId);
         if (user) {
             textLabel.textContent = `ID: ${user.id}, Name: ${user.first_name}, Group: ${user.user_group}`;
         }
         else {
             textLabel.textContent = "No users were found with the provided User ID.";
             }
+        }
+            catch (error) {
+            console.error('Error fetching data:', error)
 
+        }
     }
 
     const textInput = document.getElementById("textInput");
     textInput.addEventListener("keydown", function (event) {
         const userId = textInput.value.trim()
+        console.log(userId)
         if (event.key === "Enter"){
             if (userId) {
                 retrieveData(userId);
@@ -71,9 +71,6 @@
             event.target.value = "";
         }
     });
-
-        
-    
 
 </script>
 </html>
